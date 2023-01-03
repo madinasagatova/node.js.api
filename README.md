@@ -1,62 +1,12 @@
-# node.js.api
-Practicing Node.js Express Framework. Building a REST API with Node and Express. Get all users, get a user by ID, create a new user, update and delete user methods. 
-const express = require('express')
-const router = express.Router()
-const uuid = require('uuid')
-let users = require('../../Users')
+# Building a Rest API with Node.js Express Framework 
+# Introduction 
+- Building a RESTful API.
+- Performing CRUD operations.
+- Writing API endpoints.
 
-//get all users 
-router.get('/', (req, res) =>{
-    res.json(users);
-});
-
-//get user by id
-router.get('/:id', (req, res) =>{
-    const found = users.some(user => user.id === parseInt(req.params.id))
-
-    if(found){
-        res.json(users.filter(user => user.id === parseInt(req.params.id)))
-    } else{
-        res.sendStatus(400)
-    }
-})
-
-//create a new user
-router.post('/', (req, res) =>{
-    const newUser = {
-        id: uuid.v4(),
-        name: req.body.name,
-        email: req.body.email
-    }
-    if(!newUser.name || !newUser.email){
-        return res.sendStatus(400)
-    }
-    users.push(newUser)
-    res.json(users)
-})
-//update user
-router.put('/:id', (req,res) => {
-    const found = users.some(user => user.id === parseInt(req.params.id))
-
-    if(found){
-        const updateUser = req.body;
-        users.forEach(user =>{
-            if(user.id === parseInt(req.params.id)){
-                user.name = updateUser.name ? updateUser.name: user.name
-                user.email = updateUser.email ? updateUser.email: user.email
-                res.json({msg:'User updated', user})
-            }
-        })
-    }
-})
-//delete user
-router.delete('/:id', (req, res) =>{
-    const found = users.some((user) => user.id === parseInt(req.params.id));
-    if(found){
-        users = users.filter((user) => user.id !== parseInt(req.params.id));
-        res.json({msg: 'User deleted', users});
-    }else {
-        res.sendStatus(400)
-    }
-});
-module.exports = router
+# Step 1
+Use Node.js and Express to build an API that performs CRUD operations on users.
+1. Run in terminal "npm init" to initialize Node package manager(NPM). It creates a default json file called package.json
+2. Create a new file index.js and write in the terminal "npm install --save express" to install Express 
+3. Listen the code on local host 3000 
+Add a server script to the package.json that runs the API using nodemon.
